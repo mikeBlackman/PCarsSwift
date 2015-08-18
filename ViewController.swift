@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var gear: UITextField!
     
+    // insert url to local crest server here
     let url = "http://192.168.178.35:8080/crest/v1/api?carState=true"
     
     @IBOutlet weak var speedo: UITextField!
