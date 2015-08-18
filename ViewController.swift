@@ -10,9 +10,6 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-
-
-
 class ViewController: UIViewController {
 
     @IBOutlet var rpmView2: RpmView!
@@ -68,9 +65,6 @@ class ViewController: UIViewController {
                 }
         }
     }
-    
-
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
