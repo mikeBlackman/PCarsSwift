@@ -16,27 +16,19 @@ import Alamofire
 class ViewController: UIViewController {
 
     @IBOutlet var rpmView2: RpmView!
-    
     @IBOutlet weak var gear: UITextField!
-    
+    @IBOutlet weak var speedo: UITextField!
+
     // insert url to local crest server here
     let url = "http://192.168.178.35:8080/crest/v1/api?carState=true"
     
-    @IBOutlet weak var speedo: UITextField!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib.
-        println("RUN VIEW DID LOAD")
-        
         var timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
-        
-
     }
     
     func update() {
-        // Something cool
         
         Alamofire.request(.GET, url)
             .responseJSON { _, _, JSONY, _ in
