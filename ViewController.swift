@@ -28,40 +28,30 @@ class ViewController: UIViewController {
     func update() {
         
         Alamofire.request(.GET, url)
-            .responseJSON { _, _, JSONY, _ in
+            .responseJSON { _, _, jsonResponse, _ in
                 
-                var json = JSON(JSONY!)
-                let carStateSpeed = json["carState"]["mSpeed"]
-                let carSpeedMetersPerSecondDouble = carStateSpeed.double
-                let speedkmph = carSpeedMetersPerSecondDouble! * 3.6
+                let json = JSON(jsonResponse!)
+                let carSpeedMetersPerSecond = json["carState"]["mSpeed"].double
+
+                let speedkmph = carSpeedMetersPerSecond! * 3.6
                 let speedRounded = Int(round(speedkmph))
                 
-                //println(speedkmph)
                 self.speedo.text = "\(speedRounded)"
-                //"carState"
                 
-                let maxRpmJson = json["carState"]["mMaxRPM"]
-                let currentRpmJson = json["carState"]["mRpm"]
-                
-                let maxRpm = maxRpmJson.intValue
-                let currentRpm = currentRpmJson.intValue
+                let maxRpm = json["carState"]["mMaxRPM"].intValue
+                let currentRpm = json["carState"]["mRpm"].intValue
                 
                 self.rpmView2.maxRpm = maxRpm
                 self.rpmView2.currentRpm = currentRpm
                 
                 self.rpmView2.setNeedsDisplay()
                 
-                // set current gear
+                let currentGear = json["carState"]["mGear"].intValue
                 
-                let currentGear = json["carState"]["mGear"]
-                
-                let currentGearValue = currentGear.intValue
-                
-                if currentGearValue != 0 {
-                
-                self.gear.text = "\(currentGearValue)"
+                if currentGear != 0 {
+                    self.gear.text = "\(currentGear)"
                 } else {
-                   self.gear.text = "N"
+                   self.gear.text = "N" // Display N for neutral
                 }
         }
     }
