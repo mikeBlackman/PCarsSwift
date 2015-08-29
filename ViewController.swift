@@ -12,9 +12,11 @@ import Alamofire
 
 class ViewController: UIViewController {
 
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet var rpmView2: RpmView!
     @IBOutlet weak var gear: UITextField!
     @IBOutlet weak var speedo: UITextField!
+    @IBOutlet weak var absText: UITextField!
 
     // insert url to local crest server here
     let url = "http://192.168.178.35:8080/crest/v1/api?carState=true"
@@ -22,37 +24,46 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.backgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "carbonFiber.png")!)
+        
         var timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
     
     func update() {
         
-        Alamofire.request(.GET, url)
-            .responseJSON { _, _, jsonResponse, _ in
-                
-                let json = JSON(jsonResponse!)
-                let carSpeedMetersPerSecond = json["carState"]["mSpeed"].double
-
-                let speedkmph = carSpeedMetersPerSecond! * 3.6
-                let speedRounded = Int(round(speedkmph))
-                
-                self.speedo.text = "\(speedRounded)"
-                
-                let maxRpm = json["carState"]["mMaxRPM"].intValue
-                let currentRpm = json["carState"]["mRpm"].intValue
-                
-                self.rpmView2.maxRpm = maxRpm
-                self.rpmView2.currentRpm = currentRpm
-                
-                self.rpmView2.setNeedsDisplay()
-                
-                let currentGear = json["carState"]["mGear"].intValue
-                
-                if currentGear != 0 {
-                    self.gear.text = "\(currentGear)"
-                } else {
-                   self.gear.text = "N" // Display N for neutral
-                }
+        Alamofire.request(.GET, url).responseJSON { _, _, jsonResponse, _ in
+            
+            let json = JSON(jsonResponse!)
+            
+            // KMPH
+            let carSpeedMetersPerSecond = json["carState"]["mSpeed"].double
+            let speedkmph = carSpeedMetersPerSecond! * 3.6
+            let speedRounded = Int(round(speedkmph))
+            self.speedo.text = "\(speedRounded)"
+            
+            // RPM
+            let maxRpm = json["carState"]["mMaxRPM"].intValue
+            let currentRpm = json["carState"]["mRpm"].intValue
+            self.rpmView2.maxRpm = maxRpm
+            self.rpmView2.currentRpm = currentRpm
+            self.rpmView2.setNeedsDisplay()
+            
+            // GEAR
+            let currentGear = json["carState"]["mGear"].intValue
+            if currentGear != 0 {
+                self.gear.text = "\(currentGear)"
+            } else {
+                self.gear.text = "N" // Display N for neutral
+            }
+            
+            // ABS
+            let absStatus = json["carState"]["mAntiLockActive"].bool
+            
+            if absStatus != nil && absStatus! {
+                self.absText.textColor = UIColor.greenColor()
+            } else if absStatus != nil && !absStatus! {
+                self.absText.textColor = UIColor.grayColor()
+            }
         }
     }
 

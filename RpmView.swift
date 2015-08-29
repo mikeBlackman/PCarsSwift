@@ -14,8 +14,8 @@ let π:CGFloat = CGFloat(M_PI)
     
     @IBInspectable var maxRpm: Int = 9000
     @IBInspectable var currentRpm: Int = 0
-    @IBInspectable var outlineColor: UIColor = UIColor.redColor()
-    @IBInspectable var counterColor: UIColor = UIColor.grayColor()
+    @IBInspectable var overlayColor: UIColor = UIColor.redColor()
+    @IBInspectable var backingColor: UIColor = UIColor.grayColor()
     
     override func drawRect(rect: CGRect) {
         
@@ -33,33 +33,22 @@ let π:CGFloat = CGFloat(M_PI)
             clockwise: true)
         
         path.lineWidth = arcWidth
-        counterColor.setStroke()
+        backingColor.setStroke()
         path.stroke()
         
         // Draw the actual rpm outline
         let angleDifference: CGFloat =  endAngle - startAngle
         let arcLengthPerRpm = angleDifference / CGFloat(maxRpm)
         let outlineEndAngle = (arcLengthPerRpm * CGFloat(currentRpm) + startAngle)
-        
-        // draw the outer arc
-        var outlinePath = UIBezierPath(arcCenter: center,
-            radius: bounds.width/2 - 2.5,
+    
+        var path2 = UIBezierPath(arcCenter: center,
+            radius: radius/2 - arcWidth/2,
             startAngle: startAngle,
             endAngle: outlineEndAngle,
             clockwise: true)
         
-        // draw the inner arc
-        outlinePath.addArcWithCenter(center,
-            radius: bounds.width/2 - arcWidth + 2.5,
-            startAngle: outlineEndAngle,
-            endAngle: startAngle,
-            clockwise: false)
-        
-        // close the path
-        outlinePath.closePath()
-        outlineColor.setStroke()
-        outlinePath.lineWidth = 5.0
-        outlinePath.stroke()
-        
+        path2.lineWidth = arcWidth
+        overlayColor.setStroke()
+        path2.stroke()
     }
 }
