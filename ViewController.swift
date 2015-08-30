@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var absText: UITextField!
 
     // insert url to local crest server here
-    let url = "http://192.168.178.35:8080/crest/v1/api?carState=true"
+    let url = "http://192.168.178.35:8080/crest/v1/api?carState=true&wheelsAndTyres=true"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,22 @@ class ViewController: UIViewController {
             } else if absStatus != nil && !absStatus! {
                 self.absText.textColor = UIColor.grayColor()
             }
+            
+            // Tyre Wear
+            let leftFrontTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][0].double!)
+            let rightFrontTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][1].double!)
+            let leftRearTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][2].double!)
+            let rightRearTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][3].double!)
+            
+            
+            
         }
+    }
+    
+    
+    func calcTyreWearPercentage (value : Double) -> Int {
+        let percentage = Int(1 - value) * 100;
+        return percentage
     }
 
     override func didReceiveMemoryWarning() {
