@@ -31,8 +31,8 @@ class ViewController: UIViewController {
             .responseJSON { _, _, jsonResponse, _ in
                 
                 let json = JSON(jsonResponse!)
+                
                 let carSpeedMetersPerSecond = json["carState"]["mSpeed"].double
-
                 let speedkmph = carSpeedMetersPerSecond! * 3.6
                 let speedRounded = Int(round(speedkmph))
                 
