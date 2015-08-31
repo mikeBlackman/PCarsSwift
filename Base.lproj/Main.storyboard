@@ -94,6 +94,10 @@
                         <outlet property="absText" destination="1PV-bf-GG9" id="w8K-W1-PmB"/>
                         <outlet property="backgroundView" destination="M8L-uc-LT6" id="rtm-Xk-21r"/>
                         <outlet property="gear" destination="r21-xk-H6Z" id="oZM-kK-Ncc"/>
+                        <outlet property="leftFrontWear" destination="VCg-CR-E55" id="B2W-ES-vFR"/>
+                        <outlet property="leftRearWear" destination="TIu-TB-2Ft" id="Kxr-oq-VAf"/>
+                        <outlet property="rightFrontWear" destination="mhI-pY-3AF" id="LvL-RJ-mkj"/>
+                        <outlet property="rightRearWear" destination="9eP-X1-B2a" id="fIF-dc-WNl"/>
                         <outlet property="rpmView2" destination="qCx-mL-dJY" id="zTv-6a-AAc"/>
                         <outlet property="speedo" destination="r5x-Bd-pqB" id="WL0-ED-lnr"/>
                     </connections>

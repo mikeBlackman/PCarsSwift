@@ -17,6 +17,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var gear: UITextField!
     @IBOutlet weak var speedo: UITextField!
     @IBOutlet weak var absText: UITextField!
+    
+    @IBOutlet weak var leftFrontWear: UITextField!
+    @IBOutlet weak var rightFrontWear: UITextField!
+    @IBOutlet weak var rightRearWear: UITextField!
+    @IBOutlet weak var leftRearWear: UITextField!
+    
+    
 
     // insert url to local crest server here
     let url = "http://192.168.178.35:8080/crest/v1/api?carState=true&wheelsAndTyres=true"
@@ -52,8 +59,10 @@ class ViewController: UIViewController {
             let currentGear = json["carState"]["mGear"].intValue
             if currentGear != 0 {
                 self.gear.text = "\(currentGear)"
-            } else {
+            } else if currentGear == 0 {
                 self.gear.text = "N" // Display N for neutral
+            } else {
+                self.gear.text = "R" // Display R for reverse
             }
             
             // ABS
@@ -71,15 +80,18 @@ class ViewController: UIViewController {
             let leftRearTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][2].double!)
             let rightRearTyreWear = self.calcTyreWearPercentage(json["wheelsAndTyres"]["mTyreWear"][3].double!)
             
-            
+            self.leftFrontWear.text = "\(leftFrontTyreWear)"
+            self.rightFrontWear.text = "\(rightFrontTyreWear)"
+            self.leftRearWear.text = "\(leftRearTyreWear)"
+            self.rightRearWear.text = "\(rightRearTyreWear)"
             
         }
     }
     
     
     func calcTyreWearPercentage (value : Double) -> Int {
-        let percentage = Int(1 - value) * 100;
-        return percentage
+        let percentage = (1 - value) * 100;
+        return Int(percentage)
     }
 
     override func didReceiveMemoryWarning() {
