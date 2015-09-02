@@ -35,7 +35,6 @@ class ViewController: UIViewController {
     
     func update() {
         
-<<<<<<< HEAD
         Alamofire.request(.GET, url).responseJSON { _, _, jsonResponse, _ in
             
             let json = JSON(jsonResponse!)
@@ -83,35 +82,7 @@ class ViewController: UIViewController {
             self.leftRearWear.text = "\(leftRearTyreWear)"
             self.rightRearWear.text = "\(rightRearTyreWear)"
             
-=======
-        Alamofire.request(.GET, url)
-            .responseJSON { _, _, jsonResponse, _ in
-                
-                let json = JSON(jsonResponse!)
-                
-                let carSpeedMetersPerSecond = json["carState"]["mSpeed"].double
-                let speedkmph = carSpeedMetersPerSecond! * 3.6
-                let speedRounded = Int(round(speedkmph))
-                
-                self.speedo.text = "\(speedRounded)"
-                
-                let maxRpm = json["carState"]["mMaxRPM"].intValue
-                let currentRpm = json["carState"]["mRpm"].intValue
-                
-                self.rpmView2.maxRpm = maxRpm
-                self.rpmView2.currentRpm = currentRpm
-                
-                self.rpmView2.setNeedsDisplay()
-                
-                let currentGear = json["carState"]["mGear"].intValue
-                
-                if currentGear != 0 {
-                    self.gear.text = "\(currentGear)"
-                } else {
-                   self.gear.text = "N" // Display N for neutral
-                }
->>>>>>> origin/master
-        }
+            
     }
     
     
