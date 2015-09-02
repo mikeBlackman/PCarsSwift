@@ -54,7 +54,7 @@ class ViewController: UIViewController {
             
             // GEAR
             let currentGear = json["carState"]["mGear"].intValue
-            if currentGear != 0 {
+            if currentGear > 0 {
                 self.gear.text = "\(currentGear)"
             } else if currentGear == 0 {
                 self.gear.text = "N" // Display N for neutral
