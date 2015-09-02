@@ -82,7 +82,7 @@ class ViewController: UIViewController {
             self.leftRearWear.text = "\(leftRearTyreWear)"
             self.rightRearWear.text = "\(rightRearTyreWear)"
             
-            
+            }
     }
     
     
