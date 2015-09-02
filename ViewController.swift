@@ -23,8 +23,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var rightRearWear: UITextField!
     @IBOutlet weak var leftRearWear: UITextField!
     
-    
-
     // insert url to local crest server here
     let url = "http://192.168.178.35:8080/crest/v1/api?carState=true&wheelsAndTyres=true"
     
@@ -32,7 +30,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.backgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "carbonFiber.png")!)
-        
         var timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
     
