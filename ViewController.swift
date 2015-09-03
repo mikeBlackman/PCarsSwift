@@ -85,7 +85,6 @@ class ViewController: UIViewController {
             }
     }
     
-    
     func calcTyreWearPercentage (value : Double) -> Int {
         let percentage = (1 - value) * 100;
         return Int(percentage)
