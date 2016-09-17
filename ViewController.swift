@@ -28,7 +28,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.backgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "carbonFiber.png")!)
         var timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
     }
